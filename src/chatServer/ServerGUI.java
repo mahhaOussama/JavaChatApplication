@@ -5,12 +5,11 @@
  */
 package chatServer;
 
-import chatapplication.ChatGUI;
+
 import java.net.*;
 import java.io.*;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+
 /**
  *
  * @author Animesh
@@ -36,7 +35,7 @@ public class ServerGUI extends javax.swing.JFrame  {
             clientSocket = socket;
             InputStreamReader isReader = new InputStreamReader(clientSocket.getInputStream());
             reader = new BufferedReader(isReader);
-        }catch(Exception ex){
+        }catch(IOException ex){
             System.out.println(ex);
         }
     }
@@ -203,7 +202,7 @@ public class ServerGUI extends javax.swing.JFrame  {
             clientSocket.close();
             serverSocket.close();
             isConnected = false;
-        } catch (IOException ex) {
+            }catch (IOException ex) {
             
         }
     }//GEN-LAST:event_jButton_DisconnectActionPerformed
@@ -221,10 +220,8 @@ public class ServerGUI extends javax.swing.JFrame  {
                     connect();
                 } catch (IOException ex) {
                    System.out.println(ex);
-                }
-                
-                
-        }
+                }   
+            }
         }
     }//GEN-LAST:event_jButton_ConnectActionPerformed
 
