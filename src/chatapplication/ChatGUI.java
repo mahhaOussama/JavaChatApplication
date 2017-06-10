@@ -50,8 +50,8 @@ public class ChatGUI extends javax.swing.JFrame {
           }catch(IOException ex){
               System.out.println(ex);
             }
-          }
         }
+    }
         
     
     /**
@@ -104,6 +104,7 @@ public class ChatGUI extends javax.swing.JFrame {
         });
 
         jButton_Disconnect.setText("Disconnect");
+        jButton_Disconnect.setEnabled(false);
         jButton_Disconnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_DisconnectActionPerformed(evt);
@@ -186,7 +187,7 @@ public class ChatGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
          
         try {
-            pwrite.println(username + "has disconnected");
+            pwrite.println(username + " has disconnected");
             sock.close();
             isConnected = false;
         } catch (IOException ex) {
@@ -210,7 +211,10 @@ public class ChatGUI extends javax.swing.JFrame {
                     pwrite = new PrintWriter(ostream, true);
                     Thread listener = new Thread(new ServerHandler(sock, pwrite));
                     listener.start();
-                }catch(Exception ex){
+                    jButton_Disconnect.setEnabled(true);
+                    jButton_Connect.setEnabled(false);
+                    jTextArea_ChatWindow.append("You are now connected!\n");
+                }catch(IOException ex){
                  System.out.println(ex);   
                 }
         }

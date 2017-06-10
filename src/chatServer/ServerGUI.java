@@ -63,10 +63,10 @@ public class ServerGUI extends javax.swing.JFrame  {
     
     public void connect() throws IOException{
         serverSocket = new ServerSocket(port);
-        System.out.println("Waiting for your friend....");
+        jTextArea_ChatWindow.append("Waiting for your friend....");
         clientSocket = serverSocket.accept();
         writer = new PrintWriter(clientSocket.getOutputStream(), true);
-        System.out.print("Friend connected");
+         jTextArea_ChatWindow.append("Friend connected");
         Thread listener = new Thread(new ClientHandler(clientSocket, writer));
         listener.start();
     }
