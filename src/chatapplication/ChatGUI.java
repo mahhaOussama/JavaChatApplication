@@ -28,28 +28,28 @@ public class ChatGUI extends javax.swing.JFrame {
     BufferedReader reader;
     PrintWriter client;
     
-    public ServerHandler(Socket socket,PrintWriter user){
-        client = user;
-        try{
-            
-            sock = socket;
-            InputStreamReader isReader = new InputStreamReader(sock.getInputStream());
-            reader = new BufferedReader(isReader);
-        }catch(Exception ex){
-            System.out.println(ex);
-        }
-    }
-    
-        @Override
-        public void run() {
-            String message;
-          try{
-              while((message = reader.readLine()) != null){
-                  jTextArea_ChatWindow.append(message + "\n");
-              }
-          }catch(IOException ex){
-              System.out.println(ex);
+        public ServerHandler(Socket socket,PrintWriter user){
+            client = user;
+            try{
+
+                sock = socket;
+                InputStreamReader isReader = new InputStreamReader(sock.getInputStream());
+                reader = new BufferedReader(isReader);
+            }catch(Exception ex){
+                System.out.println(ex);
             }
+        }
+
+            @Override
+            public void run() {
+                String message;
+              try{
+                  while((message = reader.readLine()) != null){
+                      jTextArea_ChatWindow.append(message + "\n");
+                  }
+              }catch(IOException ex){
+                  System.out.println(ex);
+                }
         }
     }
         
@@ -86,6 +86,7 @@ public class ChatGUI extends javax.swing.JFrame {
         jTextField_PortNumber = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Client");
         setResizable(false);
 
         jLabel_Username.setText("Username");
@@ -190,6 +191,8 @@ public class ChatGUI extends javax.swing.JFrame {
             pwrite.println(username + " has disconnected");
             sock.close();
             isConnected = false;
+            jButton_Connect.setEnabled(true);
+            jButton_Disconnect.setEnabled(false);
         } catch (IOException ex) {
             Logger.getLogger(ChatGUI.class.getName()).log(Level.SEVERE, null, ex);
         }

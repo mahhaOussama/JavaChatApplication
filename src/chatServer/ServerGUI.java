@@ -62,11 +62,11 @@ public class ServerGUI extends javax.swing.JFrame  {
     
     
     public void connect() throws IOException{
+        
         serverSocket = new ServerSocket(port);
-        jTextArea_ChatWindow.append("Waiting for your friend....");
         clientSocket = serverSocket.accept();
         writer = new PrintWriter(clientSocket.getOutputStream(), true);
-         jTextArea_ChatWindow.append("Friend connected");
+        jTextArea_ChatWindow.append("Friend connected\n");
         Thread listener = new Thread(new ClientHandler(clientSocket, writer));
         listener.start();
     }
@@ -99,6 +99,7 @@ public class ServerGUI extends javax.swing.JFrame  {
         jTextField_PortNumber = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Server");
         setResizable(false);
 
         jLabel_Username.setText("Username");
@@ -117,6 +118,7 @@ public class ServerGUI extends javax.swing.JFrame  {
         });
 
         jButton_Disconnect.setText("Disconnect");
+        jButton_Disconnect.setEnabled(false);
         jButton_Disconnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_DisconnectActionPerformed(evt);
@@ -202,6 +204,9 @@ public class ServerGUI extends javax.swing.JFrame  {
             clientSocket.close();
             serverSocket.close();
             isConnected = false;
+            jButton_Connect.setEnabled(true);
+            jButton_Disconnect.setEnabled(false);
+            
             }catch (IOException ex) {
             
         }
@@ -218,6 +223,8 @@ public class ServerGUI extends javax.swing.JFrame  {
                 port = Integer.parseInt(jTextField_PortNumber.getText());
                 try {
                     connect();
+                    jButton_Connect.setEnabled(false);
+                    jButton_Disconnect.setEnabled(true);
                 } catch (IOException ex) {
                    System.out.println(ex);
                 }   
