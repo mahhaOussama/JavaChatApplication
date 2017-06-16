@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chatapplication;
+
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -84,6 +84,8 @@ public class ChatGUI extends javax.swing.JFrame {
         jButton_Send = new javax.swing.JButton();
         Port = new javax.swing.JLabel();
         jTextField_PortNumber = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField_IPAdress = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Client");
@@ -131,6 +133,14 @@ public class ChatGUI extends javax.swing.JFrame {
 
         Port.setText("Port");
 
+        jLabel1.setText("IP Adress");
+
+        jTextField_IPAdress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_IPAdressActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,11 +148,6 @@ public class ChatGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_Send, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel_Username)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -154,8 +159,19 @@ public class ChatGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton_Connect)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton_Disconnect)))
+                        .addComponent(jButton_Disconnect))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton_Send, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(147, 147, 147)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField_IPAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,13 +184,17 @@ public class ChatGUI extends javax.swing.JFrame {
                     .addComponent(jButton_Disconnect)
                     .addComponent(Port)
                     .addComponent(jTextField_PortNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField_IPAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3)
-                    .addComponent(jButton_Send, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_Send, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -201,14 +221,14 @@ public class ChatGUI extends javax.swing.JFrame {
     private void jButton_ConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ConnectActionPerformed
         // TODO add your handling code here:
         if(isConnected == false){
-            if("".equals(jTextField_Username.getText()) || "".equals(jTextField_PortNumber.getText()))
+            if("".equals(jTextField_Username.getText()) || "".equals(jTextField_PortNumber.getText()) || "".equals(jTextField_IPAdress.getText()))
             {
                 System.out.println("Please enter required parameters");
             }else{
                 username = jTextField_Username.getText();
                 port = Integer.parseInt(jTextField_PortNumber.getText());
                 try{
-                    sock = new Socket("127.0.0.1", port);
+                    sock = new Socket(jTextField_IPAdress.getText(), port);
                     isConnected = true;
                     ostream = sock.getOutputStream();
                     pwrite = new PrintWriter(ostream, true);
@@ -240,6 +260,10 @@ public class ChatGUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton_SendActionPerformed
+
+    private void jTextField_IPAdressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_IPAdressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_IPAdressActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,11 +305,13 @@ public class ChatGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Connect;
     private javax.swing.JButton jButton_Disconnect;
     private javax.swing.JButton jButton_Send;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel_Username;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea_ChatWindow;
     private javax.swing.JTextArea jTextArea_Text_Input;
+    private javax.swing.JTextField jTextField_IPAdress;
     private javax.swing.JTextField jTextField_PortNumber;
     private javax.swing.JTextField jTextField_Username;
     // End of variables declaration//GEN-END:variables
