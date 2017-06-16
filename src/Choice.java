@@ -73,6 +73,7 @@ public class Choice extends javax.swing.JFrame {
     private void jButton_HostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_HostActionPerformed
         // TODO add your handling code here:
             new ServerGUI().setVisible(true);
+            this.dispose();
             
         
     }//GEN-LAST:event_jButton_HostActionPerformed
@@ -80,6 +81,7 @@ public class Choice extends javax.swing.JFrame {
     private void jButton_JoinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_JoinActionPerformed
         // TODO add your handling code here:
             new ChatGUI().setVisible(true);
+            this.dispose();
     }//GEN-LAST:event_jButton_JoinActionPerformed
 
     /**
