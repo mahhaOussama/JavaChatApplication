@@ -14,8 +14,22 @@ import java.util.logging.Logger;
  * @author Animesh
  */
 
-
 public class ChatGUI extends javax.swing.JFrame {
+    public class PongClient implements Runnable{
+        
+        public void run(){
+            try {
+                    PongMulti2 p2 = new PongMulti2();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ServerGUI.class.getName()).log(Level.SEVERE, null, ex);
+             } catch (IOException ex) {
+                Logger.getLogger(ServerGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+
+    
     String username;
     Socket sock;
     Boolean isConnected = false;
@@ -86,6 +100,7 @@ public class ChatGUI extends javax.swing.JFrame {
         jTextField_PortNumber = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTextField_IPAdress = new javax.swing.JTextField();
+        jButton_PingPong = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Client");
@@ -141,6 +156,13 @@ public class ChatGUI extends javax.swing.JFrame {
             }
         });
 
+        jButton_PingPong.setText("Play Ping Pong");
+        jButton_PingPong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_PingPongActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -169,7 +191,9 @@ public class ChatGUI extends javax.swing.JFrame {
                                 .addComponent(jTextField_IPAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton_Connect)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton_Connect)
+                            .addComponent(jButton_PingPong))
                         .addGap(18, 18, 18)
                         .addComponent(jButton_Disconnect)))
                 .addContainerGap())
@@ -185,10 +209,11 @@ public class ChatGUI extends javax.swing.JFrame {
                     .addComponent(jButton_Disconnect)
                     .addComponent(Port)
                     .addComponent(jTextField_PortNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField_IPAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_IPAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_PingPong))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -266,6 +291,12 @@ public class ChatGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_IPAdressActionPerformed
 
+    private void jButton_PingPongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_PingPongActionPerformed
+        // TODO add your handling code here:
+        Thread listener = new Thread(new PongClient());
+        listener.start();
+    }//GEN-LAST:event_jButton_PingPongActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -305,6 +336,7 @@ public class ChatGUI extends javax.swing.JFrame {
     private javax.swing.JLabel Port;
     private javax.swing.JButton jButton_Connect;
     private javax.swing.JButton jButton_Disconnect;
+    private javax.swing.JButton jButton_PingPong;
     private javax.swing.JButton jButton_Send;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel_Username;

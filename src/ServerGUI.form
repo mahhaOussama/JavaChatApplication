@@ -43,9 +43,14 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jTextField_PortNumber" min="-2" pref="67" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton_Connect" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton_Disconnect" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jButton_PingPong" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jButton_Connect" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jButton_Disconnect" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -64,7 +69,9 @@
                   <Component id="Port" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextField_PortNumber" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="68" max="32767" attributes="0"/>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <Component id="jButton_PingPong" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="194" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -150,6 +157,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField_PortNumber">
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton_PingPong">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Play Ping Pong"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_PingPongActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
