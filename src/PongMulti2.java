@@ -143,6 +143,7 @@ public class PongMulti2 extends JPanel implements KeyListener{
        paddle2Collision();
        P1counter++;
        
+       
     }
     
     private void movePaddle(){
@@ -172,17 +173,17 @@ public class PongMulti2 extends JPanel implements KeyListener{
     }
     
     public PongMulti2(String IPAdress) throws InterruptedException, IOException{
-        JFrame frame = new JFrame();
-        frame.setSize(WIDTH, HEIGHT);
-        frame.add(this);
-        frame.setTitle("Pong 2");
-        frame.setBackground(Color.WHITE);
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.addKeyListener(this);
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        JFrame frame1 = new JFrame();
+        frame1.setSize(WIDTH, HEIGHT);
+        frame1.add(this);
+        frame1.setTitle("Pong 2");
+        frame1.setBackground(Color.WHITE);
+        frame1.setResizable(false);
+        frame1.setVisible(true);
+        frame1.addKeyListener(this);
+        frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         try{
-                    sock = new Socket("127.0.0.1", 5555);
+                    sock = new Socket(IPAdress, 5555);
                     isConnected = true;
                     ostream = sock.getOutputStream();
                     pwrite = new PrintWriter(ostream, true);
@@ -197,6 +198,9 @@ public class PongMulti2 extends JPanel implements KeyListener{
             movePaddle();
             repaint();
             Thread.sleep(5);
+            if(P1counter == 1000){
+                frame1.dispose();
+       }
         }
     }
  

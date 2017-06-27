@@ -168,22 +168,20 @@ public class PongMulti extends JPanel implements KeyListener{
     }
     
     public PongMulti() throws InterruptedException, IOException{
-        JFrame frame = new JFrame();
-        frame.setSize(WIDTH, HEIGHT);
-        frame.add(this);
-        frame.setTitle("Pong 1");
-        frame.setBackground(Color.WHITE);
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.addKeyListener(this);
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
+        JFrame frame2 = new JFrame();
+        frame2.setSize(WIDTH, HEIGHT);
+        frame2.add(this);
+        frame2.setTitle("Pong 1");
+        frame2.setBackground(Color.WHITE);
+        frame2.setResizable(false);
+        frame2.setVisible(true);
+        frame2.addKeyListener(this);
+        frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         serverSocket = new ServerSocket(5555);
         clientSocket = serverSocket.accept();
         pwriter = new PrintWriter(clientSocket.getOutputStream(), true);
         Thread listener = new Thread(new KeyMulti(clientSocket));
         listener.start();
-        
         while(true){
             moveBall();
             movePaddle();
