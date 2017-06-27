@@ -6,7 +6,6 @@
 
 import java.net.*;
 import java.io.*;
-import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -162,6 +161,7 @@ public class ChatGUI extends javax.swing.JFrame {
         });
 
         jButton_PingPong.setText("Play Ping Pong");
+        jButton_PingPong.setEnabled(false);
         jButton_PingPong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_PingPongActionPerformed(evt);
@@ -244,6 +244,7 @@ public class ChatGUI extends javax.swing.JFrame {
             isConnected = false;
             jButton_Connect.setEnabled(true);
             jButton_Disconnect.setEnabled(false);
+            jButton_PingPong.setEnabled(false);
         } catch (IOException ex) {
             Logger.getLogger(ChatGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -267,6 +268,7 @@ public class ChatGUI extends javax.swing.JFrame {
                     listener.start();
                     jButton_Disconnect.setEnabled(true);
                     jButton_Connect.setEnabled(false);
+                    jButton_PingPong.setEnabled(true);
                     jTextArea_ChatWindow.append("You are now connected!\n");
                 }catch(IOException ex){
                  System.out.println(ex);   

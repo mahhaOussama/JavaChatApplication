@@ -161,6 +161,7 @@ public class ServerGUI extends javax.swing.JFrame  {
         Port.setText("Port");
 
         jButton_PingPong.setText("Play Ping Pong");
+        jButton_PingPong.setEnabled(false);
         jButton_PingPong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_PingPongActionPerformed(evt);
@@ -234,7 +235,7 @@ public class ServerGUI extends javax.swing.JFrame  {
             isConnected = false;
             jButton_Connect.setEnabled(true);
             jButton_Disconnect.setEnabled(false);
-            
+            jButton_PingPong.setEnabled(false);
             }catch (IOException ex) {
             
         }
@@ -253,6 +254,7 @@ public class ServerGUI extends javax.swing.JFrame  {
                     connect();
                     jButton_Connect.setEnabled(false);
                     jButton_Disconnect.setEnabled(true);
+                    jButton_PingPong.setEnabled(true);
                 } catch (IOException ex) {
                    System.out.println(ex);
                 }   

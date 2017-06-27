@@ -6,6 +6,7 @@
 
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -213,7 +214,9 @@ public class PongMulti2 extends JPanel implements KeyListener{
         g2d.fillOval(BallXPosition, BallYPosition, 30, 30);
         g2d.fillRect(50, Paddle1Position, 30, 80);
         g2d.fillRect(600, Paddle2Position, 30, 80);
-        g.drawString(Integer.toString(P1counter), 25, 25);
+        Font font = new Font("Serif", Font.PLAIN, 30);
+        g2d.setFont(font);
+        g2d.drawString(Integer.toString(P1counter), 25, 25);
     }
     
 
