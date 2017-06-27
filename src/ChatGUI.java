@@ -16,10 +16,15 @@ import java.util.logging.Logger;
 
 public class ChatGUI extends javax.swing.JFrame {
     public class PongClient implements Runnable{
+        String IPAdress;
+        public PongClient(String IPAdress){
+            this.IPAdress = IPAdress;
+        }
+        
         
         public void run(){
             try {
-                    PongMulti2 p2 = new PongMulti2();
+                    PongMulti2 p2 = new PongMulti2(IPAdress);
             } catch (InterruptedException ex) {
                 Logger.getLogger(ServerGUI.class.getName()).log(Level.SEVERE, null, ex);
              } catch (IOException ex) {
@@ -293,7 +298,7 @@ public class ChatGUI extends javax.swing.JFrame {
 
     private void jButton_PingPongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_PingPongActionPerformed
         // TODO add your handling code here:
-        Thread listener = new Thread(new PongClient());
+        Thread listener = new Thread(new PongClient(jTextField_IPAdress.getText()));
         listener.start();
     }//GEN-LAST:event_jButton_PingPongActionPerformed
 

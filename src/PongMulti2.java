@@ -40,6 +40,7 @@ public class PongMulti2 extends JPanel implements KeyListener{
     private int Paddle2Direction = 0;
     private int counter = 0;
     char c;
+    int P1counter = 0;
     
     
     String username;
@@ -140,6 +141,8 @@ public class PongMulti2 extends JPanel implements KeyListener{
        wallCollision();
        paddle1Collision();
        paddle2Collision();
+       P1counter++;
+       
     }
     
     private void movePaddle(){
@@ -168,7 +171,7 @@ public class PongMulti2 extends JPanel implements KeyListener{
         }
     }
     
-    public PongMulti2() throws InterruptedException, IOException{
+    public PongMulti2(String IPAdress) throws InterruptedException, IOException{
         JFrame frame = new JFrame();
         frame.setSize(WIDTH, HEIGHT);
         frame.add(this);
@@ -206,12 +209,9 @@ public class PongMulti2 extends JPanel implements KeyListener{
         g2d.fillOval(BallXPosition, BallYPosition, 30, 30);
         g2d.fillRect(50, Paddle1Position, 30, 80);
         g2d.fillRect(600, Paddle2Position, 30, 80);
+        g.drawString(Integer.toString(P1counter), 25, 25);
     }
     
-    
-    public static void main(String[] args) throws InterruptedException, IOException{
-        PongMulti2 p = new PongMulti2();
-    }
 
     @Override
     public void keyTyped(KeyEvent e) {
