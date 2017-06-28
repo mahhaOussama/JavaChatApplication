@@ -11,6 +11,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,6 +20,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import javax.swing.JFrame;
 import java.net.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JPanel;
 
@@ -49,12 +53,9 @@ public class PongMulti extends JPanel implements KeyListener{
     int x = WIDTH / 2;
     int y = HEIGHT / 2;
     
-     public class KeyMulti implements Runnable{
-      BufferedReader reader;
-             
-     
-     
-      public KeyMulti(Socket socket){
+    public class KeyMulti implements Runnable{
+    BufferedReader reader;
+    public KeyMulti(Socket socket){
         try{
             
             clientSocket = socket;
@@ -89,8 +90,6 @@ public class PongMulti extends JPanel implements KeyListener{
             }
       }
      }
-    
-    
     
     private void reset(){
     BallXPosition = 400; 
@@ -177,6 +176,17 @@ public class PongMulti extends JPanel implements KeyListener{
         frame2.setVisible(true);
         frame2.addKeyListener(this);
         frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame2.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent evt){
+                frame2.dispose();
+                try {
+                    serverSocket.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(PongMulti.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         serverSocket = new ServerSocket(5555);
         clientSocket = serverSocket.accept();
         pwriter = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -201,7 +211,6 @@ public class PongMulti extends JPanel implements KeyListener{
         g2d.fillRect(600, Paddle2Position, 30, 80);
     }
     
-    
     public static void main(String[] args) throws InterruptedException, IOException{
         PongMulti p = new PongMulti();
     }
@@ -225,8 +234,7 @@ public class PongMulti extends JPanel implements KeyListener{
         }
 
     }
-    
-    
+      
     @Override
     public void keyReleased(KeyEvent e){
         if(e.getKeyCode() == KeyEvent.VK_W){
@@ -238,10 +246,6 @@ public class PongMulti extends JPanel implements KeyListener{
             Paddle1Direction = 0;
             pwriter.println("q");
             pwriter.flush();
-        }
-
-        
-    }
-    
-    
+        }   
+    } 
 }

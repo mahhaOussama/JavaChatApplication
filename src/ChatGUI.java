@@ -269,7 +269,8 @@ public class ChatGUI extends javax.swing.JFrame {
                     jButton_Disconnect.setEnabled(true);
                     jButton_Connect.setEnabled(false);
                     jButton_PingPong.setEnabled(true);
-                    jTextArea_ChatWindow.append("You are now connected!\n");
+                    pwrite.println(username + " has connected");
+                    pwrite.flush();
                 }catch(IOException ex){
                  System.out.println(ex);   
                 }

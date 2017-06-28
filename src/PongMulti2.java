@@ -12,6 +12,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -173,6 +175,7 @@ public class PongMulti2 extends JPanel implements KeyListener{
         }
     }
     
+  
     public PongMulti2(String IPAdress) throws InterruptedException, IOException{
         JFrame frame1 = new JFrame();
         frame1.setSize(WIDTH, HEIGHT);
@@ -182,7 +185,13 @@ public class PongMulti2 extends JPanel implements KeyListener{
         frame1.setResizable(false);
         frame1.setVisible(true);
         frame1.addKeyListener(this);
-        frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame1.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame1.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent evt){
+                frame1.dispose();
+            }
+        });
         try{
                     sock = new Socket(IPAdress, 5555);
                     isConnected = true;

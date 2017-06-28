@@ -81,7 +81,6 @@ public class ServerGUI extends javax.swing.JFrame  {
         serverSocket = new ServerSocket(port);
         clientSocket = serverSocket.accept();
         writer = new PrintWriter(clientSocket.getOutputStream(), true);
-        jTextArea_ChatWindow.append("Friend connected\n");
         Thread listener = new Thread(new ClientHandler(clientSocket, writer));
         listener.start();
     }
@@ -255,6 +254,8 @@ public class ServerGUI extends javax.swing.JFrame  {
                     jButton_Connect.setEnabled(false);
                     jButton_Disconnect.setEnabled(true);
                     jButton_PingPong.setEnabled(true);
+                    writer.println("You are now connected with " + username);
+                    writer.flush();
                 } catch (IOException ex) {
                    System.out.println(ex);
                 }   
@@ -272,6 +273,7 @@ public class ServerGUI extends javax.swing.JFrame  {
                 writer.flush();
                 jTextArea_ChatWindow.append(username + ":" + jTextArea_Text_Input.getText() + "\n");
                 jTextArea_Text_Input.setText("");
+                
             }catch(Exception ex){
                 System.out.println(ex);
             }
