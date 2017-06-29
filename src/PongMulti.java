@@ -6,6 +6,7 @@
 
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -22,7 +23,6 @@ import javax.swing.JFrame;
 import java.net.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JPanel;
 
 
@@ -40,12 +40,15 @@ public class PongMulti extends JPanel implements KeyListener{
     private int Paddle2Position = 200;
     private int Paddle1Direction = 0;
     private int Paddle2Direction = 0;
+    int P1counter = 0;
+    int P2counter = 0;
     private int counter = 0;
     ServerSocket serverSocket;
     int port;
     Socket clientSocket;
     OutputStream ostream;
     PrintWriter pwriter;
+   
     char c;
     /**
      * @param args the command line arguments
@@ -105,14 +108,20 @@ public class PongMulti extends JPanel implements KeyListener{
     
     private void wallCollision(){
        BallXPosition += BallXVelocity;
+       pwriter.println("X"+BallXPosition);
        BallYPosition += BallYVelocity;
+       pwriter.println("Y"+BallYPosition);
+       
+    
        
        
        if(BallXPosition + 30 > WIDTH - 10){
            reset();
+           P2counter++;
        }
        if(BallXPosition + 30 < 30){
            reset();
+           P1counter++;
        }
        if(BallYPosition + 30 > HEIGHT - 40){
            BallYVelocity += -1.5;
@@ -182,6 +191,7 @@ public class PongMulti extends JPanel implements KeyListener{
                 frame2.dispose();
                 try {
                     serverSocket.close();
+                    clientSocket.close();
                 } catch (IOException ex) {
                     Logger.getLogger(PongMulti.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -209,6 +219,10 @@ public class PongMulti extends JPanel implements KeyListener{
         g2d.fillOval(BallXPosition, BallYPosition, 30, 30);
         g2d.fillRect(50, Paddle1Position, 30, 80);
         g2d.fillRect(600, Paddle2Position, 30, 80);
+        Font font = new Font("Serif", Font.PLAIN, 30);
+        g2d.setFont(font);
+        g2d.drawString(Integer.toString(P1counter), 50, 25);
+        g2d.drawString(Integer.toString(P2counter), 500, 25);
     }
     
     public static void main(String[] args) throws InterruptedException, IOException{

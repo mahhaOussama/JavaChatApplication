@@ -44,6 +44,7 @@ public class PongMulti2 extends JPanel implements KeyListener{
     private int counter = 0;
     char c;
     int P1counter = 0;
+    int P2counter = 0;
     
     
     String username;
@@ -59,10 +60,7 @@ public class PongMulti2 extends JPanel implements KeyListener{
     int y = HEIGHT / 2;
     
     private void reset(){
-    BallXPosition = 400; 
-    BallYPosition = 0;
-    BallXVelocity = 1;
-    BallYVelocity = 1;
+
     Paddle1Position = 200;
     Paddle2Position = 200;
     Paddle1Direction = 0;
@@ -102,6 +100,12 @@ public class PongMulti2 extends JPanel implements KeyListener{
                 else if(c == 'q'){
                     Paddle1Direction = 0;
                 }
+                else if(c == 'X'){
+                    BallXPosition = Integer.parseInt(message.substring(1));
+                }
+                else if(c == 'Y'){
+                    BallYPosition = Integer.parseInt(message.substring(1));
+                }
                 }
                 
             } catch (IOException ex) {
@@ -110,43 +114,26 @@ public class PongMulti2 extends JPanel implements KeyListener{
         }
     }    
     private void wallCollision(){
-       BallXPosition += BallXVelocity;
-       BallYPosition += BallYVelocity;
-       
+
+
        
        if(BallXPosition + 30 > WIDTH - 10){
            reset();
+           P2counter++;
        }
        if(BallXPosition + 30 < 30){
            reset();
+           P1counter++;
        }
-       if(BallYPosition + 30 > HEIGHT - 40){
-           BallYVelocity += -1.5;
-       }
-       if(BallYPosition + 30 < 30){
-           BallYVelocity += 1.5;
-       }
+
     }
     
-    private void paddle1Collision(){
-        if(BallXPosition + 30 < 110 && BallYPosition < Paddle1Position + 50 && BallYPosition > Paddle1Position - 50){
-            BallXVelocity = -BallXVelocity;
-        }
-    }
-    
-    private void paddle2Collision(){
-        if(BallXPosition - 30 > 550 && BallYPosition < Paddle2Position + 50 && BallYPosition > Paddle2Position - 50){
-            BallXVelocity = -BallXVelocity;
-        }
-    }
+ 
     
     private void moveBall(){
        wallCollision();
-       paddle1Collision();
-       paddle2Collision();
-       P1counter++;
-       
-       
+
+     
     }
     
     private void movePaddle(){
@@ -225,7 +212,8 @@ public class PongMulti2 extends JPanel implements KeyListener{
         g2d.fillRect(600, Paddle2Position, 30, 80);
         Font font = new Font("Serif", Font.PLAIN, 30);
         g2d.setFont(font);
-        g2d.drawString(Integer.toString(P1counter), 25, 25);
+        g2d.drawString(Integer.toString(P1counter), 50, 25);
+        g2d.drawString(Integer.toString(P2counter), 500, 25);
     }
     
 
