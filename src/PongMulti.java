@@ -94,7 +94,7 @@ public class PongMulti extends JPanel implements KeyListener{
       }
      }
     
-    private void reset(){
+    private void resetPosition(){
     BallXPosition = 400; 
     BallYPosition = 0;
     BallXVelocity = 1;
@@ -106,6 +106,12 @@ public class PongMulti extends JPanel implements KeyListener{
     
     }
     
+    private void resetScore(){
+            P1counter = 0;
+            P2counter = 0;
+    }
+    
+    
     private void wallCollision(){
        BallXPosition += BallXVelocity;
        pwriter.println("X"+BallXPosition);
@@ -116,11 +122,11 @@ public class PongMulti extends JPanel implements KeyListener{
        
        
        if(BallXPosition + 30 > WIDTH - 10){
-           reset();
+           resetPosition();
            P2counter++;
        }
        if(BallXPosition + 30 < 30){
-           reset();
+           resetPosition();
            P1counter++;
        }
        if(BallYPosition + 30 > HEIGHT - 40){
@@ -206,7 +212,11 @@ public class PongMulti extends JPanel implements KeyListener{
             moveBall();
             movePaddle();
             repaint();
-            Thread.sleep(5);
+            Thread.sleep(4);
+            if(P1counter == 10 || P2counter == 10){
+                resetPosition();
+                resetScore();
+       }
         }
     }
  

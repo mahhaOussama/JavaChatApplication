@@ -59,12 +59,16 @@ public class PongMulti2 extends JPanel implements KeyListener{
     int x = WIDTH / 2;
     int y = HEIGHT / 2;
     
-    private void reset(){
-
+    private void resetPosition(){
     Paddle1Position = 200;
     Paddle2Position = 200;
     Paddle1Direction = 0;
     Paddle2Direction = 0;
+    }
+    
+    private void resetScore(){
+            P1counter = 0;
+            P2counter = 0;
     }
     
     public class KeyMulti implements Runnable{
@@ -118,11 +122,11 @@ public class PongMulti2 extends JPanel implements KeyListener{
 
        
        if(BallXPosition + 30 > WIDTH - 10){
-           reset();
+           resetPosition();
            P2counter++;
        }
        if(BallXPosition + 30 < 30){
-           reset();
+           resetPosition();
            P1counter++;
        }
 
@@ -194,10 +198,11 @@ public class PongMulti2 extends JPanel implements KeyListener{
             moveBall();
             movePaddle();
             repaint();
-            Thread.sleep(5);
-            if(P1counter == 1000){
-                frame1.dispose();
-       }
+            Thread.sleep(4);
+            if(P1counter == 10 || P2counter == 10){
+                resetPosition();
+                resetScore();
+            }
         }
     }
  
